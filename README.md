@@ -1,5 +1,9 @@
 # liiga-lite
 
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/cc285057-f468-4b74-9c01-08952a532034/deploy-status)](https://app.netlify.com/sites/liiga-lite/deploys)
+
+
 ## Build Setup
 
 ```bash
