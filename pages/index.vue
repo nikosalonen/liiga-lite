@@ -1,12 +1,18 @@
 <template>
-  <div class="container">
-    <div>
-      <h1 class="title">Liiga lite</h1>
-      <ul v-for="game in games" :key="game.id">
-        <li>
-          <Game :game="game" />
-        </li>
-      </ul>
+  <div class="app">
+    <div class="center grid">
+      <vs-row>
+        <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="12">
+          <div>
+            <h1 class="title">Liiga tänään {{ today }}</h1>
+            <ul v-for="game in games" :key="game.id">
+              <li>
+                <Game :game="game" />
+              </li>
+            </ul>
+          </div>
+        </vs-col>
+      </vs-row>
     </div>
   </div>
 </template>
@@ -15,8 +21,9 @@
 export default {
   async asyncData({ $axios, $config }) {
     const liigaGames = await $axios.$get(`games/`)
-    // const today = Date.now();
-    const today = '2021-09-09'
+    // const today = Date.now().toLocaleDateString('fi-FI')
+
+    const today = '2021-09-10'
 
     const games = liigaGames.filter((obj) => today === obj.start.split('T')[0])
 
@@ -26,13 +33,25 @@ export default {
 </script>
 
 <style>
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
+.app {
+  width: 100%;
+  height: 100vh;
   display: flex;
-  justify-content: center;
   align-items: center;
-  text-align: center;
+  justify-content: center;
+  color: #fff;
+}
+ul li {
+  list-style: none;
+}
+a {
+  color: #fff;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #aaa;
+  text-decoration: underline;
 }
 
 .title {
@@ -41,7 +60,7 @@ export default {
   display: block;
   font-weight: 300;
   font-size: 55px;
-  color: #35495e;
+  color: #fff;
   letter-spacing: 1px;
   text-transform: capitalize;
   margin: 25px 0;
