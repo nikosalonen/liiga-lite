@@ -4,7 +4,7 @@
       {{ liigaGame.game.homeTeam.teamId }} -
       {{ liigaGame.game.awayTeam.teamId }}
     </h1>
-    <button @click="refresh">Refresh</button>
+    <vs-button @click="refresh">Refresh</vs-button>
     <p>
       <NuxtLink to="/">Takaisin etusivulle</NuxtLink>
     </p>
