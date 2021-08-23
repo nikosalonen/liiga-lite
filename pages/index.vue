@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div class="mx-auto flex flex-col items-center py-8">
     <h1 class="text-white text-5xl">
       Liiga tänään {{ new Date(today).toLocaleDateString('fi-FI') }}
     </h1>
@@ -14,7 +14,7 @@ export default {
   data() {
     return {
       games: [],
-      today: '2021-09-09',
+      today: '2021-09-10',
     }
   },
   async fetch() {
