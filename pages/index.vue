@@ -3,8 +3,10 @@
     <h1 class="text-white text-5xl">
       Liiga tänään {{ new Date(today).toLocaleDateString('fi-FI') }}
     </h1>
-    <div v-for="game in games" :key="game.id">
-      <Game :game="game" />
+    <div class="gamesWrapper flex flex-col">
+      <div v-for="game in games" :key="game.id">
+        <Game :game="game" />
+      </div>
     </div>
   </div>
 </template>
@@ -21,9 +23,10 @@ export default {
     const liigaGames = await fetch('https://www.liiga.fi/api/v1/games/').then(
       (g) => g.json()
     )
-    this.games = liigaGames.filter(
-      (obj) => this.today === obj.start.split('T')[0]
-    )
+
+    this.games = liigaGames
+      .filter((obj) => this.today === obj.start.split('T')[0])
+      .sort((a, b) => a.id - b.id)
   },
 }
 </script>
