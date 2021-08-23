@@ -45,7 +45,11 @@ export default {
   ],
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
-  axios: {},
+  axios: {
+    proxyHeaders: false,
+    credentials: false,
+    baseURL: 'https://www.liiga.fi/api/v1/',
+  },
 
   tailwindcss: {
     configPath: 'tailwind.config.js',
