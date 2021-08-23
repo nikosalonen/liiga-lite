@@ -47,8 +47,16 @@ export default {
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {},
 
+  tailwindcss: {
+    configPath: 'tailwind.config.js',
+  },
+
   googleFonts: {
     display: 'block',
+    download: true,
+    overwriting: false,
+    base64: true,
+    fontsPath: '~assets/fonts',
     families: {
       Saira: true,
     },
