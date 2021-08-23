@@ -4,7 +4,7 @@
       <div
         class="
           flex flex-row
-          dp-16
+          pb-2
           text-gray-500 text-xs
           justify-center
           align-center
@@ -12,12 +12,15 @@
           place-content-center
         "
       >
-        {{
-          'klo ' +
-          new Intl.DateTimeFormat('fi-FI', { timeStyle: 'medium' })
-            .format(new Date(game.start))
-            .slice(0, -3)
-        }}
+        <span v-if="!gameData.stared">
+          {{
+            'klo ' +
+            new Intl.DateTimeFormat('fi-FI', { timeStyle: 'medium' })
+              .format(new Date(gameData.start))
+              .slice(0, -3)
+          }}
+        </span>
+        <span v-if="gameData.ended"> Peli päättynyt </span>
       </div>
       <div
         class="
@@ -37,7 +40,12 @@
             }.png`)
           "
         />
-        -
+        <div v-if="!game.stared" class="score text-gray-700 text-xl px-4">
+          0 - 0
+        </div>
+        <div v-else class="" score text-white text-xl px-4>
+          {{ gameData.homeTeam.goals }} - {{ gameData.homeTeam.goals }}
+        </div>
         <img
           class="teamLogo"
           :src="
