@@ -1,9 +1,4 @@
 export default {
-  publicRuntimeConfig: {
-    axios: {
-      baseURL: 'https://www.liiga.fi/api/v1/',
-    },
-  },
   // Disable server-side rendering (https://go.nuxtjs.dev/ssr-mode)
   ssr: false,
 
@@ -18,11 +13,8 @@ export default {
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
 
-  // Global CSS (https://go.nuxtjs.dev/config-css)
-  css: ['vuesax/dist/vuesax.css'],
-
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
-  plugins: ['@/plugins/vuesax', '@/plugins/axios'],
+  plugins: [],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
   components: true,
@@ -31,12 +23,14 @@ export default {
   buildModules: [
     // https://go.nuxtjs.dev/eslint
     '@nuxtjs/eslint-module',
+    // https://go.nuxtjs.dev/tailwindcss
+    '@nuxtjs/tailwindcss',
+
+    '@nuxtjs/google-fonts',
   ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [
-    // https://go.nuxtjs.dev/axios
-    '@nuxtjs/axios',
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
     // https://go.nuxtjs.dev/content
@@ -44,8 +38,21 @@ export default {
   ],
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
-  axios: {},
 
+  tailwindcss: {
+    configPath: 'tailwind.config.js',
+  },
+
+  googleFonts: {
+    display: 'block',
+    download: true,
+    overwriting: false,
+    base64: true,
+    fontsPath: '~assets/fonts',
+    families: {
+      Saira: true,
+    },
+  },
   // Content module configuration (https://go.nuxtjs.dev/config-content)
   content: {},
 
