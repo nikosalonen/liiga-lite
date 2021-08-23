@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    <h1 class="">
+    <h1 class="text-white text-5xl">
       Liiga tänään {{ new Date(today).toLocaleDateString('fi-FI') }}
     </h1>
     <div v-for="game in games" :key="game.id">

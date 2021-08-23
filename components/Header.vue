@@ -1,8 +1,8 @@
 <template>
-  <nav class="bg-gray-800">
-    <div class="max-w-12xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-16">
-        <div class="flex items-center">
+  <nav class="bg-gray-800 flex flex-row">
+    <div class="flex max-w-12xl mx-auto px-4 sm:px-6 lg:px-8 flex-row">
+      <div class="flex items-center justify-end h-16">
+        <div class="flex items-center justify-end">
           <div class="hidden md:block">
             <div class="flex items-baseline">
               <a
