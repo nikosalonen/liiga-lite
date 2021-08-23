@@ -1,18 +1,10 @@
 <template>
   <div class="app">
-    <div class="center grid">
-      <vs-row>
-        <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="12">
-          <div>
-            <h1 class="title">Liiga tänään {{ today }}</h1>
-            <ul v-for="game in games" :key="game.id">
-              <li>
-                <Game :game="game" />
-              </li>
-            </ul>
-          </div>
-        </vs-col>
-      </vs-row>
+    <div class="">
+      <h1 class="title">Liiga tänään {{ today }}</h1>
+      <div v-for="game in games" :key="game.id">
+        <Game :game="game" />
+      </div>
     </div>
   </div>
 </template>
@@ -23,11 +15,11 @@ export default {
     const liigaGames = await $axios.$get(`games/`)
     // const today = Date.now().toLocaleDateString('fi-FI')
 
-    const today = '2021-09-10'
+    const today = '2021-09-09'
 
     const games = liigaGames.filter((obj) => today === obj.start.split('T')[0])
 
-    return { games }
+    return { games, today }
   },
 }
 </script>
@@ -35,7 +27,7 @@ export default {
 <style>
 .app {
   width: 100%;
-  height: 100vh;
+  /* height: 100vh; */
   display: flex;
   align-items: center;
   justify-content: center;

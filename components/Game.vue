@@ -1,7 +1,14 @@
 <template>
   <NuxtLink :to="`${game.season}/${game.id}`">
-    {{ game.homeTeam.teamId.split(':')[1] }} -
-    {{ game.awayTeam.teamId.split(':')[1] }}
+    <img
+      class="teamLogo"
+      :src="require(`~/assets/img/${game.homeTeam.teamId.split(':')[1]}.png`)"
+    />
+    -
+    <img
+      class="teamLogo"
+      :src="require(`~/assets/img/${game.awayTeam.teamId.split(':')[1]}.png`)"
+    />
   </NuxtLink>
 </template>
 <script>
@@ -14,3 +21,8 @@ export default {
   },
 }
 </script>
+<style scoped>
+.teamLogo {
+  max-width: 50px;
+}
+</style>
