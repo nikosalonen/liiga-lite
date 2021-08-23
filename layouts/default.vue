@@ -3,7 +3,7 @@
     id="app"
     class="
       bg-gray-900
-      h-screen
+      min-h-screen
       flex flex-col
       bg-gray-1000
       font-body

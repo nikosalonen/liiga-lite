@@ -1,15 +1,54 @@
 <template>
-  <NuxtLink :to="`${game.season}/${game.id}`">
-    <img
-      class="teamLogo"
-      :src="require(`~/assets/img/${game.homeTeam.teamId.split(':')[1]}.png`)"
-    />
-    -
-    <img
-      class="teamLogo"
-      :src="require(`~/assets/img/${game.awayTeam.teamId.split(':')[1]}.png`)"
-    />
-  </NuxtLink>
+  <div class="pt-16 text-white flex flex-row">
+    <NuxtLink :to="`${gameData.season}/${gameData.id}`">
+      <div
+        class="
+          flex flex-row
+          dp-16
+          text-gray-500 text-xs
+          justify-center
+          align-center
+          items-center
+          place-content-center
+        "
+      >
+        {{
+          'klo ' +
+          new Intl.DateTimeFormat('fi-FI', { timeStyle: 'medium' })
+            .format(new Date(game.start))
+            .slice(0, -3)
+        }}
+      </div>
+      <div
+        class="
+          flex
+          logoRow
+          justify-center
+          align-center
+          items-center
+          place-content-center
+        "
+      >
+        <img
+          class="teamLogo"
+          :src="
+            require(`~/assets/img/${
+              gameData.homeTeam.teamId.split(':')[1]
+            }.png`)
+          "
+        />
+        -
+        <img
+          class="teamLogo"
+          :src="
+            require(`~/assets/img/${
+              gameData.awayTeam.teamId.split(':')[1]
+            }.png`)
+          "
+        />
+      </div>
+    </NuxtLink>
+  </div>
 </template>
 <script>
 export default {
@@ -18,6 +57,11 @@ export default {
       type: Object,
       required: true,
     },
+  },
+  data() {
+    return {
+      gameData: this.game,
+    }
   },
 }
 </script>
