@@ -1,7 +1,9 @@
 <template>
   <div class="app">
     <div class="">
-      <h1 class="title">Liiga tänään {{ today }}</h1>
+      <h1 class="title">
+        Liiga tänään {{ new Date(today).toLocaleDateString('fi-FI') }}
+      </h1>
       <div v-for="game in games" :key="game.id">
         <Game :game="game" />
       </div>
