@@ -30,6 +30,8 @@ export default {
     '@nuxtjs/eslint-module',
     // https://go.nuxtjs.dev/tailwindcss
     '@nuxtjs/tailwindcss',
+
+    '@nuxtjs/google-fonts',
   ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
@@ -45,6 +47,12 @@ export default {
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {},
 
+  googleFonts: {
+    display: 'block',
+    families: {
+      Saira: true,
+    },
+  },
   // Content module configuration (https://go.nuxtjs.dev/config-content)
   content: {},
 
