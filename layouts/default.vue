@@ -1,9 +1,10 @@
 <template>
-  <div class="min-h-screen flex flex-col justify-center">
+  <div class="min-h-screen flex flex-col justify-center bg-gray-1000">
     <Header />
     <div class="relative py-3 sm:max-w-xl sm:mx-auto">
       <Nuxt />
     </div>
+    <Footer />
   </div>
 </template>
 
