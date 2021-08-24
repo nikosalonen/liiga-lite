@@ -1,5 +1,5 @@
 <template>
-  <div class="mx-auto flex flex-col items-center py-8">
+  <div class="mx-auto h-full flex flex-col items-center py-8">
     <Counter />
     <div v-if="isLoggedIn">
       <h1 class="text-white text-5xl">
@@ -11,6 +11,23 @@
       >
         <div v-for="game in games" :key="game.id">
           <Game :game="game" />
+        </div>
+        <div class="flex justify-center">
+          <button
+            class="
+              mt-16
+              justify-center
+              rounded-3xl
+              p-2
+              border-2
+              text-1xl text-white
+              hover:bg-white hover:text-gray-800
+              w-1/2
+            "
+            @click="refresh"
+          >
+            Refresh
+          </button>
         </div>
       </div>
       <div v-if="nextGame">
@@ -93,6 +110,9 @@ export default {
     }
   },
   methods: {
+    refresh() {
+      this.$nuxt.refresh()
+    },
     ...mapActions('user', {
       updateUser: 'updateUser',
     }),
