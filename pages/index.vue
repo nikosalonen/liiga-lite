@@ -10,9 +10,15 @@
         </div>
       </div>
     </div>
-    <div v-else>
+    <div v-else class="mt-4">
       <a
-        class="btn text-3xl text-white"
+        class="
+          rounded-3xl
+          p-4
+          border-2
+          text-3xl text-white
+          hover:bg-white hover:text-gray-800
+        "
         href="#"
         @click="triggerNetlifyIdentityAction('login')"
       >
