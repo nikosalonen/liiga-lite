@@ -1,5 +1,6 @@
 <template>
   <div class="mx-auto flex flex-col items-center py-8">
+    <Counter />
     <div v-if="isLoggedIn">
       <h1 class="text-white text-5xl">
         Liigan pelit {{ today.toFormat('dd.LL.yyyy') }}
