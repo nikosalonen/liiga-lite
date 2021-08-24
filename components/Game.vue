@@ -13,12 +13,7 @@
         "
       >
         <span v-if="!gameData.stared">
-          {{
-            'klo ' +
-            new Intl.DateTimeFormat('fi-FI', { timeStyle: 'medium' })
-              .format(new Date(gameData.start))
-              .slice(0, -3)
-          }}
+          {{ startTime }}
         </span>
         <span v-if="gameData.ended"> Peli päättynyt </span>
       </div>
@@ -59,6 +54,7 @@
   </div>
 </template>
 <script>
+import { DateTime } from 'luxon'
 export default {
   props: {
     game: {
@@ -69,6 +65,7 @@ export default {
   data() {
     return {
       gameData: this.game,
+      startTime: DateTime.fromISO(this.game.start).toFormat("'klo' HH:mm"),
     }
   },
 }
