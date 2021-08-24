@@ -14,8 +14,8 @@
         </div>
       </div>
       <div v-if="nextGame">
-        <div class="text-white text-3xl pt-32 flex justify-center">
-          Seuraavat pelit &nbsp;
+        <div class="text-white text-2xl pt-16 flex justify-center">
+          Ei pelejä tänään. Seuraavat pelit &nbsp;
           <a
             class="hover:underline"
             :href="`?date=${nextGame.toFormat('yyyy-LL-dd')}`"
