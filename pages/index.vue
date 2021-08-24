@@ -3,7 +3,7 @@
     <Counter />
     <div v-if="isLoggedIn">
       <h1 class="text-white text-5xl">
-        Liigan pelit {{ today.toFormat('dd.LL.yyyy') }}
+        Liigan pelit {{ today.setLocale('fi').toFormat('ccc dd.LL.') }}
       </h1>
       <div
         v-if="games.length"
@@ -17,9 +17,9 @@
         <div class="text-white text-2xl pt-16 flex justify-center">
           Ei pelejä tänään. Seuraavat pelit &nbsp;
           <a
-            class="hover:underline"
+            class="underline"
             :href="`?date=${nextGame.toFormat('yyyy-LL-dd')}`"
-            >{{ nextGame.toFormat('dd.LL.yyyy') }}</a
+            >{{ nextGame.setLocale('fi').toFormat('ccc dd.LL.') }}</a
           >
         </div>
       </div>
