@@ -1,5 +1,5 @@
 <template>
-  <div class="pt-16 text-white flex flex-row">
+  <div class="pt-16 text-white flex flex-row justify-center">
     <NuxtLink :to="`${gameData.season}/${gameData.id}`">
       <div
         class="
