@@ -79,6 +79,9 @@ export default {
   },
 
   async fetch() {
+    if (this.$route.query.date) {
+      this.today = DateTime.fromISO(this.$route.query.date)
+    }
     const liigaGames = await fetch('https://www.liiga.fi/api/v1/games/').then(
       (g) => g.json()
     )
@@ -104,11 +107,7 @@ export default {
       user: 'getUser',
     }),
   },
-  mounted() {
-    if (this.$route.query.date) {
-      this.today = DateTime.fromISO(this.$route.query.date)
-    }
-  },
+
   methods: {
     refresh() {
       this.$nuxt.refresh()
