@@ -12,9 +12,14 @@
           <Game :game="game" />
         </div>
       </div>
-      <div v-else>
+      <div v-if="nextGame">
         <div class="text-white text-3xl pt-32 flex justify-center">
-          Seuraavat pelit {{ nextGame.toFormat('dd.LL.yyyy') }}
+          Seuraavat pelit &nbsp;
+          <a
+            class="hover:underline"
+            :href="`?date=${nextGame.toFormat('yyyy-LL-dd')}`"
+            >{{ nextGame.toFormat('dd.LL.yyyy') }}</a
+          >
         </div>
       </div>
     </div>
@@ -51,7 +56,7 @@ export default {
       currentUser: null,
       games: [],
       today: DateTime.now(),
-      nextGame: '',
+      nextGame: false,
     }
   },
 
@@ -59,13 +64,13 @@ export default {
     const liigaGames = await fetch('https://www.liiga.fi/api/v1/games/').then(
       (g) => g.json()
     )
-
     this.games = liigaGames
-      .filter(
-        (obj) =>
+      .filter((obj) => {
+        return (
           this.today.toFormat('yyyy-LL-dd') ===
-          DateTime.fromFormat(obj.start, 'yyyy-LL-dd')
-      )
+          DateTime.fromISO(obj.start).toFormat('yyyy-LL-dd')
+        )
+      })
       .sort((a, b) => a.id - b.id)
 
     if (!this.games.length) {
@@ -80,6 +85,11 @@ export default {
       isLoggedIn: 'getUserStatus',
       user: 'getUser',
     }),
+  },
+  mounted() {
+    if (this.$route.query.date) {
+      this.today = DateTime.fromISO(this.$route.query.date)
+    }
   },
   methods: {
     ...mapActions('user', {
