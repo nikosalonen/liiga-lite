@@ -10,7 +10,7 @@ export default {
   data() {
     return {
       now: DateTime.local().set({ milliseconds: 0 }),
-      end: DateTime.fromISO('2021-09-09T15:30:00').set({ milliseconds: 0 }),
+      end: DateTime.fromISO('2021-09-09T18:30:00').set({ milliseconds: 0 }),
     }
   },
   computed: {
