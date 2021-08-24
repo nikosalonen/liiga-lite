@@ -1,12 +1,20 @@
 <template>
   <div class="mx-auto flex flex-col items-center py-8">
-    <div v-if="isLoggedIn" class="">
+    <div v-if="isLoggedIn">
       <h1 class="text-white text-5xl">
-        Liiga tänään {{ new Date(today).toLocaleDateString('fi-FI') }}
+        Liiga tänään {{ today.toFormat('dd.LL.yyyy') }}
       </h1>
-      <div class="gamesWrapper flex flex-col justify-center">
+      <div
+        v-if="games.length"
+        class="gamesWrapper flex flex-col justify-center"
+      >
         <div v-for="game in games" :key="game.id">
           <Game :game="game" />
+        </div>
+      </div>
+      <div v-else>
+        <div class="text-white text-3xl pt-32 flex justify-center">
+          Seuraavat pelit {{ nextGame.toFormat('dd.LL.yyyy') }}
         </div>
       </div>
     </div>
@@ -32,17 +40,18 @@
 <script>
 import netlifyIdentity from 'netlify-identity-widget'
 import { mapGetters, mapActions } from 'vuex'
+import { DateTime } from 'luxon'
 netlifyIdentity.init({
   APIUrl: 'https://liiga-lite.netlify.app/.netlify/identity',
   logo: false, // you can try false and see what happens
 })
-
 export default {
   data() {
     return {
       currentUser: null,
       games: [],
-      today: '2021-09-10',
+      today: DateTime.now(),
+      nextGame: '',
     }
   },
 
@@ -52,17 +61,25 @@ export default {
     )
 
     this.games = liigaGames
-      .filter((obj) => this.today === obj.start.split('T')[0])
+      .filter(
+        (obj) =>
+          this.today.toFormat('yyyy-LL-dd') ===
+          DateTime.fromFormat(obj.start, 'yyyy-LL-dd')
+      )
       .sort((a, b) => a.id - b.id)
+
+    if (!this.games.length) {
+      this.nextGame = DateTime.fromISO(
+        liigaGames.filter((obj) => DateTime.fromISO(obj.start) > this.today)[0]
+          .start
+      )
+    }
   },
   computed: {
     ...mapGetters('user', {
       isLoggedIn: 'getUserStatus',
       user: 'getUser',
     }),
-    username() {
-      return this.user ? this.user.username : ', there!'
-    },
   },
   methods: {
     ...mapActions('user', {
