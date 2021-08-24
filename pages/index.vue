@@ -1,15 +1,16 @@
 <template>
   <div class="mx-auto flex flex-col items-center py-8">
-    <div v-if="isLoggedIn">
+    <div v-if="isLoggedIn" class="">
       <h1 class="text-white text-5xl">
         Liiga tänään {{ new Date(today).toLocaleDateString('fi-FI') }}
       </h1>
-      <div class="gamesWrapper flex flex-col">
+      <div class="gamesWrapper flex flex-col justify-center">
         <div v-for="game in games" :key="game.id">
           <Game :game="game" />
         </div>
       </div>
     </div>
+
     <div v-else class="mt-4">
       <a
         class="
@@ -30,6 +31,7 @@
 
 <script>
 import netlifyIdentity from 'netlify-identity-widget'
+import { mapGetters, mapActions } from 'vuex'
 netlifyIdentity.init({
   APIUrl: 'https://liiga-lite.netlify.app/.netlify/identity',
   logo: false, // you can try false and see what happens
@@ -38,11 +40,12 @@ netlifyIdentity.init({
 export default {
   data() {
     return {
-      isLoggedIn: false,
+      currentUser: null,
       games: [],
       today: '2021-09-10',
     }
   },
+
   async fetch() {
     const liigaGames = await fetch('https://www.liiga.fi/api/v1/games/').then(
       (g) => g.json()
@@ -52,7 +55,19 @@ export default {
       .filter((obj) => this.today === obj.start.split('T')[0])
       .sort((a, b) => a.id - b.id)
   },
+  computed: {
+    ...mapGetters('user', {
+      isLoggedIn: 'getUserStatus',
+      user: 'getUser',
+    }),
+    username() {
+      return this.user ? this.user.username : ', there!'
+    },
+  },
   methods: {
+    ...mapActions('user', {
+      updateUser: 'updateUser',
+    }),
     triggerNetlifyIdentityAction(action) {
       if (action === 'login' || action === 'signup') {
         netlifyIdentity.open(action)
