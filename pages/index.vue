@@ -26,7 +26,7 @@
             "
             @click="refresh"
           >
-            Refresh
+            Päivitä
           </button>
         </div>
       </div>
