@@ -2,7 +2,7 @@
   <div class="mx-auto flex flex-col items-center py-8">
     <div v-if="isLoggedIn">
       <h1 class="text-white text-5xl">
-        Liiga tänään {{ today.toFormat('dd.LL.yyyy') }}
+        Liigan pelit {{ today.toFormat('dd.LL.yyyy') }}
       </h1>
       <div
         v-if="games.length"
