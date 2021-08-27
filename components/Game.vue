@@ -27,9 +27,13 @@
           place-content-center
         "
       >
-        <nuxt-img
+        <img
           class="teamLogo"
-          :src="`/${gameData.homeTeam.teamId.split(':')[1]}.png`"
+          :src="
+            require(`~/assets/img/${
+              gameData.homeTeam.teamId.split(':')[1]
+            }.png`)
+          "
         />
         <div v-if="!game.stared" class="score text-gray-700 text-xl px-4">
           0 - 0
@@ -37,9 +41,13 @@
         <div v-else class="" score text-white text-xl px-4>
           {{ gameData.homeTeam.goals }} - {{ gameData.homeTeam.goals }}
         </div>
-        <nuxt-img
+        <img
           class="teamLogo"
-          :src="`/${gameData.awayTeam.teamId.split(':')[1]}.png`"
+          :src="
+            require(`~/assets/img/${
+              gameData.awayTeam.teamId.split(':')[1]
+            }.png`)
+          "
         />
       </div>
     </NuxtLink>

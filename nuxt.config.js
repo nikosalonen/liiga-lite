@@ -27,7 +27,6 @@ export default {
     '@nuxtjs/tailwindcss',
 
     '@nuxtjs/google-fonts',
-    '@nuxt/image',
   ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
@@ -37,8 +36,6 @@ export default {
     // https://go.nuxtjs.dev/content
     '@nuxt/content',
   ],
-
-  // Axios module configuration (https://go.nuxtjs.dev/config-axios)
 
   tailwindcss: {
     configPath: 'tailwind.config.js',

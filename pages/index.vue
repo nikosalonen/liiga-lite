@@ -82,9 +82,9 @@ export default {
     if (this.$route.query.date) {
       this.today = DateTime.fromISO(this.$route.query.date)
     }
-    const liigaGames = await fetch(
-      'https://www.liiga.fi/api/v1/games/?tournament=all'
-    ).then((g) => g.json())
+    const liigaGames = await fetch('https://www.liiga.fi/api/v1/games/').then(
+      (g) => g.json()
+    )
     this.games = liigaGames
       .filter((obj) => {
         return (
