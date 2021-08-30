@@ -23,7 +23,7 @@
       Näytä kaikki pelit
       <input
         id="showAllDates"
-        class="rounded-xl p-1"
+        class="rounded-xl p-1 border-2 border-gray-800 form-checkbox"
         type="checkbox"
         :value="showAllDates"
         @change="updateCheckbox(!showAllDates)"
@@ -55,7 +55,10 @@
         <option value="15">Ässät</option>
       </select>
     </label>
-    <a class="flex justify-center border-2 rounded-3xl" href="#" @click="toggle"
+    <a
+      class="flex justify-center border-2 rounded-3xl p-1 border-gray-800"
+      href="#"
+      @click="toggle"
       >Sulje</a
     >
   </div>
