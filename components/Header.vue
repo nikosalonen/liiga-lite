@@ -59,7 +59,6 @@ export default {
   methods: {
     ...mapMutations({
       toggle: 'settings/toggle',
-      reset: 'settings/reset',
     }),
   },
 }
