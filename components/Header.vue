@@ -17,6 +17,7 @@
                   hover:text-white hover:bg-gray-700
                   focus:outline-none focus:text-white focus:bg-gray-700
                 "
+                @click="toggle"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -47,9 +48,19 @@
   </nav>
 </template>
 <script>
+import { mapMutations } from 'vuex'
+
 export default {
-  data: () => ({
-    isOpen: false,
-  }),
+  computed: {
+    settings() {
+      return this.$store.state.settings
+    },
+  },
+  methods: {
+    ...mapMutations({
+      toggle: 'settings/toggle',
+      reset: 'settings/reset',
+    }),
+  },
 }
 </script>
