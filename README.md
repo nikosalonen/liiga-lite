@@ -3,9 +3,11 @@
 
 
 # liiga-lite
-Listaa päivän Liiga-pelit ja niiden tilanteet. Toetutettu omaksi iloksi yksityiseen käyttöön Liigan käyttöehtoja kunnioittaen. 
+Listaa päivän Liiga-pelit ja niiden tilanteet. Toteutettu omaksi iloksi ja vain yksityiseen käyttöön Liigan käyttöehtoja kunnioittaen.
 
 Website: https://liiga-lite.netlify.app/
+
+Ulkopuolisten rekisteröityminen mahdotonta.
 
 ## Build Setup
 
