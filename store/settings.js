@@ -9,7 +9,7 @@ const mutations = {
   toggle(state) {
     state.showSettings = !state.showSettings
   },
-  updateCheckbox(state, value) {
+  updateshowAllDates(state, value) {
     state.showAllDates = value
   },
   resetSettings(state) {

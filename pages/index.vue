@@ -3,9 +3,10 @@
     <div class="mx-auto h-full flex flex-col items-center py-8">
       <Counter />
       <div v-if="isLoggedIn">
-        <h1 class="text-white text-5xl">
+        <h1 v-if="!showAllDates" class="text-white text-5xl">
           Liigan pelit {{ today.setLocale('fi').toFormat('ccc dd.LL.') }}
         </h1>
+        <h1 v-else class="text-white text-5xl">Kaikki kauden pelit</h1>
         <div
           v-if="games.length"
           class="gamesWrapper flex flex-col justify-center"
@@ -78,6 +79,10 @@
     >
       <Settings />
     </div>
+    <div class="text-white">
+      <p v-if="$fetchState.pending">Ladataan...</p>
+      <p v-else-if="$fetchState.error">An error occurred :(</p>
+    </div>
   </div>
 </template>
 
@@ -97,21 +102,24 @@ export default {
       today: DateTime.now(),
       nextGame: false,
       showSettings: false,
+      showAllDates: false,
     }
   },
-
   async fetch() {
     if (this.$route.query.date) {
       this.today = DateTime.fromISO(this.$route.query.date)
     }
+    this.showAllDates = this.settings.showAllDates
+
     const liigaGames = await fetch('https://www.liiga.fi/api/v1/games/').then(
       (g) => g.json()
     )
     this.games = liigaGames
       .filter((obj) => {
         return (
+          this.showAllDates ||
           this.today.toFormat('yyyy-LL-dd') ===
-          DateTime.fromISO(obj.start).toFormat('yyyy-LL-dd')
+            DateTime.fromISO(obj.start).toFormat('yyyy-LL-dd')
         )
       })
       .sort((a, b) => a.start - b.start)
@@ -123,16 +131,29 @@ export default {
       )
     }
   },
+
   computed: {
     settings() {
       return this.$store.state.settings
     },
+    ...mapGetters('settings', {
+      showAllDates: 'showAllDates',
+    }),
     ...mapGetters('user', {
       isLoggedIn: 'getUserStatus',
       user: 'getUser',
     }),
   },
-
+  watch: {
+    '$route.query': '$fetch',
+    'this.showAllDates': '$fetch',
+  },
+  activated() {
+    // Call fetch again if last fetch more than 30 sec ago
+    if (this.$fetchState.timestamp <= Date.now() - 30000) {
+      this.$fetch()
+    }
+  },
   methods: {
     refresh() {
       this.$nuxt.refresh()

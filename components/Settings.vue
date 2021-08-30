@@ -26,7 +26,7 @@
         class="rounded-xl p-1 border-2 border-gray-800 form-checkbox"
         type="checkbox"
         :value="showAllDates"
-        @change="updateCheckbox(!showAllDates)"
+        @change="updateshowAllDates(!showAllDates)"
       />
     </label>
     <label class="flex pb-6 justify-between" for="showTeam">
@@ -87,7 +87,7 @@ export default {
     ...mapMutations({
       toggle: 'settings/toggle',
       reset: 'settings/reset',
-      updateCheckbox: 'settings/updateCheckbox',
+      updateshowAllDates: 'settings/updateshowAllDates',
     }),
   },
 }
