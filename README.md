@@ -1,7 +1,9 @@
 [![Netlify Status](https://api.netlify.com/api/v1/badges/cc285057-f468-4b74-9c01-08952a532034/deploy-status)](https://app.netlify.com/sites/liiga-lite/deploys)
 
 
+
 # liiga-lite
+Listaa päivän Liiga-pelit ja niiden tilanteet. Toetutettu omaksi iloksi yksityiseen käyttöön Liigan käyttöehtoja kunnioittaen. 
 
 Website: https://liiga-lite.netlify.app/
 
