@@ -103,6 +103,7 @@ export default {
       nextGame: false,
       showSettings: false,
       showAllDates: false,
+      showTeam: 0,
     }
   },
   async fetch() {
@@ -122,6 +123,15 @@ export default {
             DateTime.fromISO(obj.start).toFormat('yyyy-LL-dd')
         )
       })
+      .filter((game) => {
+        if (this.settings.showTeam !== 0) {
+          return (
+            game.homeTeam.teamId.endsWith(this.settings.showTeam) ||
+            game.awayTeam.teamId.endsWith(this.settings.showTeam)
+          )
+        }
+        return true
+      })
       .sort((a, b) => a.start - b.start)
 
     if (!this.games.length) {
@@ -136,18 +146,13 @@ export default {
     settings() {
       return this.$store.state.settings
     },
-    ...mapGetters('settings', {
-      showAllDates: 'showAllDates',
-    }),
+
     ...mapGetters('user', {
       isLoggedIn: 'getUserStatus',
       user: 'getUser',
     }),
   },
-  watch: {
-    '$route.query': '$fetch',
-    'this.showAllDates': '$fetch',
-  },
+
   activated() {
     // Call fetch again if last fetch more than 30 sec ago
     if (this.$fetchState.timestamp <= Date.now() - 30000) {
