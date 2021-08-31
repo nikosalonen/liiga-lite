@@ -15,6 +15,7 @@
       Näytä valitun päivän pelit
       <input
         id="showDate"
+        v-model="showDate"
         class="border-2 border-gray-800 rounded-xl p-1"
         type="date"
       />
@@ -26,7 +27,7 @@
         class="rounded-xl p-1 border-2 border-gray-800 form-checkbox"
         type="checkbox"
         :value="showAllDates"
-        @change="updateshowAllDates(!showAllDates)"
+        @change="updateShowAllDates(!showAllDates)"
       />
     </label>
     <label class="flex pb-6 justify-between" for="showTeam">
@@ -38,21 +39,21 @@
         class="border-2 border-gray-800 rounded-xl p-1"
       >
         <option value="0">Kaikki</option>
-        <option value="1">HIFK</option>
-        <option value="2">HPK</option>
-        <option value="3">Ilves</option>
-        <option value="4">Jukurit</option>
-        <option value="5">JYP</option>
-        <option value="6">Kalpa</option>
-        <option value="7">Kärpät</option>
-        <option value="8">KooKoo</option>
-        <option value="9">Lukko</option>
-        <option value="10">Pelicans</option>
-        <option value="11">SaiPa</option>
-        <option value="12">Sport</option>
-        <option value="13">Tappara</option>
-        <option value="14">TPS</option>
-        <option value="15">Ässät</option>
+        <option value="hifk">HIFK</option>
+        <option value="hpk">HPK</option>
+        <option value="ilves">Ilves</option>
+        <option value="jukurit">Jukurit</option>
+        <option value="jyp">JYP</option>
+        <option value="kalpa">Kalpa</option>
+        <option value="kärpät">Kärpät</option>
+        <option value="kookoo">KooKoo</option>
+        <option value="lukko">Lukko</option>
+        <option value="pelicans">Pelicans</option>
+        <option value="saipa">SaiPa</option>
+        <option value="sport">Sport</option>
+        <option value="tappara">Tappara</option>
+        <option value="tps">TPS</option>
+        <option value="ässät">Ässät</option>
       </select>
     </label>
     <a
@@ -79,15 +80,24 @@ export default {
         return this.$store.state.settings.showTeam
       },
       set(value) {
-        this.$store.commit('updateSettings', value)
+        this.$store.commit('settings/updateShowTeam', value)
+      },
+    },
+    showDate: {
+      get() {
+        return this.$store.state.settings.showDate
+      },
+      set(value) {
+        this.$store.commit('settings/updateShowDate', value)
       },
     },
   },
+
   methods: {
     ...mapMutations({
       toggle: 'settings/toggle',
       reset: 'settings/reset',
-      updateshowAllDates: 'settings/updateshowAllDates',
+      updateShowAllDates: 'settings/updateShowAllDates',
     }),
   },
 }
