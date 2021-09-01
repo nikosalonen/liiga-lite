@@ -3,16 +3,24 @@
     <div class="mx-auto h-full flex flex-col items-center py-8">
       <Counter />
       <div v-if="isLoggedIn">
-        <h1 v-if="!showAllDates" class="text-white text-5xl">
+        <h1 v-if="!settings.showAllDates" class="text-white text-5xl">
           Liigan pelit {{ today.setLocale('fi').toFormat('ccc dd.LL.') }}
         </h1>
         <h1 v-else class="text-white text-5xl">Kaikki kauden pelit</h1>
         <div
-          v-if="games.length"
+          v-if="pollGames.length"
+          class="gamesWrapper flex flex-col justify-center"
+        >
+          <div v-for="game in pollGames" :key="game.id">
+            <Game :game="game" :show-all-dates="settings.showAllDates" />
+          </div>
+        </div>
+        <div
+          v-else-if="games.length"
           class="gamesWrapper flex flex-col justify-center"
         >
           <div v-for="game in games" :key="game.id">
-            <Game :game="game" />
+            <Game :game="game" :show-all-dates="settings.showAllDates" />
           </div>
           <div class="flex justify-center">
             <button
@@ -32,16 +40,16 @@
             </button>
           </div>
         </div>
-        <div v-if="nextGame">
+        <!-- <div v-if="nextGameDate">
           <div class="text-white text-2xl pt-16 flex justify-center">
             Ei pelejä tänään. Seuraavat pelit &nbsp;
             <a
               class="underline"
-              :href="`?date=${nextGame.toFormat('yyyy-LL-dd')}`"
-              >{{ nextGame.setLocale('fi').toFormat('ccc dd.LL.') }}</a
+              :href="`?date=${nextGameDate.toFormat('yyyy-LL-dd')}`"
+              >{{ nextGameDate.setLocale('fi').toFormat('ccc dd.LL.') }}</a
             >
           </div>
-        </div>
+        </div> -->
       </div>
 
       <div v-else class="mt-4">
@@ -79,10 +87,6 @@
     >
       <Settings />
     </div>
-    <div class="text-white">
-      <p v-if="$fetchState.pending">Ladataan...</p>
-      <p v-else-if="$fetchState.error">An error occurred :(</p>
-    </div>
   </div>
 </template>
 
@@ -98,51 +102,40 @@ export default {
   data() {
     return {
       currentUser: null,
-      games: [],
-      today: DateTime.now(),
-      nextGame: false,
+      timer: null,
       showSettings: false,
-      showAllDates: false,
       showTeam: 0,
-    }
-  },
-  async fetch() {
-    if (this.$route.query.date) {
-      this.today = DateTime.fromISO(this.$route.query.date)
-    }
-    this.showAllDates = this.settings.showAllDates
-
-    const liigaGames = await fetch('https://www.liiga.fi/api/v1/games/').then(
-      (g) => g.json()
-    )
-    this.games = liigaGames
-      .filter((obj) => {
-        return (
-          this.showAllDates ||
-          this.today.toFormat('yyyy-LL-dd') ===
-            DateTime.fromISO(obj.start).toFormat('yyyy-LL-dd')
-        )
-      })
-      .filter((game) => {
-        if (this.settings.showTeam !== 0) {
-          return (
-            game.homeTeam.teamId.endsWith(this.settings.showTeam) ||
-            game.awayTeam.teamId.endsWith(this.settings.showTeam)
-          )
-        }
-        return true
-      })
-      .sort((a, b) => a.start - b.start)
-
-    if (!this.games.length) {
-      this.nextGame = DateTime.fromISO(
-        liigaGames.filter((obj) => DateTime.fromISO(obj.start) > this.today)[0]
-          .start
-      )
     }
   },
 
   computed: {
+    today() {
+      if (this.$route.query.date) {
+        return DateTime.fromISO(this.$route.query.date)
+      }
+      return DateTime.now()
+    },
+
+    games() {
+      return this.allGames
+        .filter((obj) => {
+          return (
+            this.settings.showAllDates ||
+            this.today.toFormat('yyyy-LL-dd') ===
+              DateTime.fromISO(obj.start).toFormat('yyyy-LL-dd')
+          )
+        })
+        .filter((game) => {
+          if (this.settings.showTeam !== 0) {
+            return (
+              game.homeTeam.teamId.endsWith(this.settings.showTeam) ||
+              game.awayTeam.teamId.endsWith(this.settings.showTeam)
+            )
+          }
+          return true
+        })
+        .sort((a, b) => a.start - b.start)
+    },
     settings() {
       return this.$store.state.settings
     },
@@ -151,21 +144,25 @@ export default {
       isLoggedIn: 'getUserStatus',
       user: 'getUser',
     }),
+    ...mapGetters('games', ['allGames', 'pollGames']),
   },
-
-  activated() {
-    // Call fetch again if last fetch more than 30 sec ago
-    if (this.$fetchState.timestamp <= Date.now() - 30000) {
-      this.$fetch()
-    }
+  created() {
+    this.getAllGames()
+    this.getPollGames()
+    this.timer = setInterval(this.getPollGames, 30000)
+  },
+  beforeDestroy() {
+    this.destroyTimer()
   },
   methods: {
+    destroyTimer() {
+      clearInterval(this.timer)
+    },
     refresh() {
       this.$nuxt.refresh()
     },
-    ...mapActions('user', {
-      updateUser: 'updateUser',
-    }),
+    ...mapActions('user', ['updateUser']),
+    ...mapActions('games', ['getAllGames', 'getPollGames']),
     triggerNetlifyIdentityAction(action) {
       if (action === 'login' || action === 'signup') {
         netlifyIdentity.open(action)

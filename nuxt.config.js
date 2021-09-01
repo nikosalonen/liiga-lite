@@ -14,7 +14,7 @@ export default {
   },
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
-  plugins: [],
+  plugins: ['~/plugins/http.js'],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
   components: true,
@@ -35,8 +35,21 @@ export default {
     '@nuxtjs/pwa',
     // https://go.nuxtjs.dev/content
     '@nuxt/content',
+    '@nuxt/http',
+    '@nuxtjs/proxy',
   ],
+  http: {
+    proxy: true, // Can be also an object with default options
+    serverTimeout: 10000,
+    https: true,
+  },
 
+  proxy: {
+    '/api/': {
+      target: 'https://liiga.fi/api/v1',
+      pathRewrite: { '^/api': '' },
+    },
+  },
   tailwindcss: {
     configPath: 'tailwind.config.js',
   },
