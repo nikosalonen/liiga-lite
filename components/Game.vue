@@ -13,6 +13,7 @@
         "
       >
         <span v-if="!gameData.stared">
+          <span v-if="showAll">{{ startDate }}</span>
           {{ startTime }}
         </span>
         <span v-if="gameData.ended"> Peli päättynyt </span>
@@ -61,11 +62,17 @@ export default {
       type: Object,
       required: true,
     },
+    showAllDates: {
+      type: Boolean,
+      required: false,
+    },
   },
   data() {
     return {
       gameData: this.game,
+      showAll: this.showAllDates,
       startTime: DateTime.fromISO(this.game.start).toFormat("'klo' HH:mm"),
+      startDate: DateTime.fromISO(this.game.start).toFormat(' dd.LL.'),
     }
   },
 }

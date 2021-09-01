@@ -20,6 +20,8 @@
   },
   "dependencies": {
     "@nuxt/content": "^1.14.0",
+    "@nuxt/http": "^0.6.4",
+    "@nuxtjs/proxy": "^2.1.0",
     "@nuxtjs/pwa": "^3.3.5",
     "core-js": "^3.16.4",
     "luxon": "^2.0.2",

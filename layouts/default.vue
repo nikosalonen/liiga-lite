@@ -12,7 +12,7 @@
   >
     <Header />
     <div class="flex-grow">
-      <Nuxt />
+      <Nuxt keep-alive />
     </div>
     <div class="">
       <Footer />
