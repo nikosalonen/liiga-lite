@@ -46,7 +46,7 @@
           0 - 0
         </div>
         <div v-else class="score text-white text-xl px-4">
-          {{ gameData.homeTeam.goals }} - {{ gameData.awayTeam.goals }}
+          {{ homeGoals }} - {{ awayGoals }}
         </div>
         <img
           class="teamLogo"
@@ -87,6 +87,12 @@ export default {
         .shiftTo('minutes', 'seconds')
         .toObject()
       return gt.minutes + ':' + (gt.seconds < 10 ? '0' : '') + gt.seconds
+    },
+    homeGoals() {
+      return this.gameData.homeTeam.goals
+    },
+    awayGoals() {
+      return this.gameData.awayTeam.goals
     },
   },
 }
