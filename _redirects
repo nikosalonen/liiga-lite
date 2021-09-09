@@ -1,2 +1,0 @@
-# _redirects file
-/api/*  https://liiga.fi/api/v1/:splat  200
