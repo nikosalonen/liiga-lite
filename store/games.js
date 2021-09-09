@@ -11,11 +11,13 @@ export const getters = {
 }
 const actions = {
   async getAllGames({ commit }) {
-    const allGames = await this.$http.$get('/api/games/')
+    const allGames = await this.$http.$get('https://liiga.fi/api/v1/games/')
     commit('setAllGames', allGames)
   },
   async getPollGames({ commit }) {
-    const pollGames = await this.$http.$get('/api/games/poll')
+    const pollGames = await this.$http.$get(
+      'https://liiga.fi/api/v1/games/poll'
+    )
     commit('setPollGames', pollGames.games)
   },
 }
