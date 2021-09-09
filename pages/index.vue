@@ -134,6 +134,9 @@ export default {
           }
           return true
         })
+        .filter((game) => {
+          return game.started === false
+        })
         .sort((a, b) => a.start - b.start)
     },
     settings() {

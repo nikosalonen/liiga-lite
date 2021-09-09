@@ -12,9 +12,12 @@
           place-content-center
         "
       >
-        <span v-if="!gameData.stared">
+        <span v-if="gameData.stared === false">
           <span v-if="showAll">{{ startDate }}</span>
           {{ startTime }}
+        </span>
+        <span v-if="gameData.started" class="text-white">
+          {{ played.minutes }}:{{ played.seconds }}
         </span>
         <span v-if="gameData.ended"> Peli päättynyt </span>
       </div>
@@ -36,11 +39,14 @@
             }.png`)
           "
         />
-        <div v-if="!game.stared" class="score text-gray-700 text-xl px-4">
+        <div
+          v-if="game.stared === false"
+          class="score text-gray-700 text-xl px-4"
+        >
           0 - 0
         </div>
-        <div v-else class="" score text-white text-xl px-4>
-          {{ gameData.homeTeam.goals }} - {{ gameData.homeTeam.goals }}
+        <div v-else class="score text-white text-xl px-4">
+          {{ gameData.homeTeam.goals }} - {{ gameData.awayTeam.goals }}
         </div>
         <img
           class="teamLogo"
@@ -55,7 +61,7 @@
   </div>
 </template>
 <script>
-import { DateTime } from 'luxon'
+import { DateTime, Duration } from 'luxon'
 export default {
   props: {
     game: {
@@ -73,6 +79,9 @@ export default {
       showAll: this.showAllDates,
       startTime: DateTime.fromISO(this.game.start).toFormat("'klo' HH:mm"),
       startDate: DateTime.fromISO(this.game.start).toFormat(' dd.LL.'),
+      played: Duration.fromObject({ seconds: this.game.gameTime })
+        .shiftTo('minutes', 'seconds')
+        .toObject(),
     }
   },
 }
