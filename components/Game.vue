@@ -17,7 +17,7 @@
           {{ startTime }}
         </span>
         <span v-if="gameData.started" class="text-white">
-          {{ played.minutes }}:{{ played.seconds }}
+          {{ gameTime }}
         </span>
         <span v-if="gameData.ended"> Peli päättynyt </span>
       </div>
@@ -79,10 +79,16 @@ export default {
       showAll: this.showAllDates,
       startTime: DateTime.fromISO(this.game.start).toFormat("'klo' HH:mm"),
       startDate: DateTime.fromISO(this.game.start).toFormat(' dd.LL.'),
-      played: Duration.fromObject({ seconds: this.game.gameTime })
-        .shiftTo('minutes', 'seconds')
-        .toObject(),
     }
+  },
+  computed: {
+    gameTime() {
+      const gt = Duration.fromObject({ seconds: this.game.gameTime })
+        .shiftTo('minutes', 'seconds')
+        .toObject()
+      console.log(gt)
+      return gt.minutes + ':' + (gt.seconds < 10 && '0') + gt.seconds
+    },
   },
 }
 </script>

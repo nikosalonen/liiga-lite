@@ -152,7 +152,8 @@ export default {
   created() {
     this.getAllGames()
     this.getPollGames()
-    this.timer = setInterval(this.getPollGames, 30000)
+    this.timer = setInterval(this.getPollGames, 15000)
+    this.refresher = setInterval(this.refresh, 10000)
   },
   beforeDestroy() {
     this.destroyTimer()
@@ -160,6 +161,7 @@ export default {
   methods: {
     destroyTimer() {
       clearInterval(this.timer)
+      clearInterval(this.refresher)
     },
     refresh() {
       this.$nuxt.refresh()
