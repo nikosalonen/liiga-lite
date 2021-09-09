@@ -40,11 +40,11 @@ export default {
     '@nuxt/http',
     '@nuxtjs/proxy',
   ],
-  http: {
-    proxy: true, // Can be also an object with default options
-    serverTimeout: 10000,
-    https: true,
-  },
+  // http: {
+  //   proxy: true, // Can be also an object with default options
+  //   serverTimeout: 10000,
+  //   https: true,
+  // },
 
   // proxy: {
   //   '/api/': {
