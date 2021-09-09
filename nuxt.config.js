@@ -46,12 +46,12 @@ export default {
     https: true,
   },
 
-  proxy: {
-    '/api/': {
-      target: 'https://liiga.fi/api/v1',
-      pathRewrite: { '^/api': '' },
-    },
-  },
+  // proxy: {
+  //   '/api/': {
+  //     target: 'https://liiga.fi/api/v1',
+  //     pathRewrite: { '^/api': '' },
+  //   },
+  // },
   tailwindcss: {
     configPath: 'tailwind.config.js',
   },
