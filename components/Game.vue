@@ -86,7 +86,7 @@ export default {
       const gt = Duration.fromObject({ seconds: this.game.gameTime })
         .shiftTo('minutes', 'seconds')
         .toObject()
-      return gt.minutes + ':' + (gt.seconds < 10 && '0') + gt.seconds
+      return gt.minutes + ':' + (gt.seconds < 10 ? '0' : '') + gt.seconds
     },
   },
 }
