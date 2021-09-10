@@ -42,10 +42,7 @@
             }.png`)
           "
         />
-        <div
-          v-if="game.stared === false"
-          class="score text-gray-700 text-xl px-4"
-        >
+        <div v-if="!started || ended" class="score text-gray-700 text-xl px-4">
           0 - 0
         </div>
         <div v-else class="score text-white text-xl px-4">
