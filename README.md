@@ -1,6 +1,6 @@
 [![Netlify Status](https://api.netlify.com/api/v1/badges/cc285057-f468-4b74-9c01-08952a532034/deploy-status)](https://app.netlify.com/sites/liiga-lite/deploys)
 
-![Screenshot](https://github.com/nikosalonen/liiga-lite/raw/master/src/screenshot.png "Liiga-lite screenshot")
+![Screenshot](https://github.com/nikosalonen/liiga-lite/raw/master/screenshot.png "Liiga-lite screenshot")
 
 
 # liiga-lite
