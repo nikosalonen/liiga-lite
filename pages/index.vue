@@ -3,10 +3,15 @@
     <div class="mx-auto h-full flex flex-col items-center py-8">
       <Counter />
       <div v-if="isLoggedIn">
-        <h1 v-if="!settings.showAllDates" class="text-white text-5xl">
+        <h1
+          v-if="!settings.showAllDates"
+          class="text-white text-5xl sm-text-1xl"
+        >
           Päivän pelit {{ today.setLocale('fi').toFormat('ccc dd.LL.') }}
         </h1>
-        <h1 v-else class="text-white text-5xl">Kaikki kauden pelit</h1>
+        <h1 v-else class="text-white text-5xl sm-text-1xl">
+          Kaikki kauden pelit
+        </h1>
 
         <div
           v-if="pollGames.length"
