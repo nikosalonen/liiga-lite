@@ -122,7 +122,10 @@ export default {
           return true
         })
         .filter((game) => {
-          return game.started === false
+          if (this.settings.showDate >= this.today.toFormat('yyyy-LL-dd')) {
+            return game.started === false
+          }
+          return true
         })
         .sort((a, b) => a.start - b.start)
     },
