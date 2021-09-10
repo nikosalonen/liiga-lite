@@ -84,6 +84,10 @@ export default {
 
   computed: {
     today() {
+      if (this.settings.showDate) {
+        this.$router.replace('/')
+        return DateTime.fromISO(this.settings.showDate)
+      }
       if (this.$route.query.date) {
         return DateTime.fromISO(this.$route.query.date)
       }
@@ -96,8 +100,12 @@ export default {
           .filter((obj) => {
             return (
               this.settings.showAllDates ||
-              this.today.toFormat('yyyy-LL-dd') ===
-                DateTime.fromISO(obj.start).toFormat('yyyy-LL-dd')
+              (this.settings.showDate &&
+                this.settings.showDate ===
+                  DateTime.fromISO(obj.start).toFormat('yyyy-LL-dd')) ||
+              (!this.settings.showDate &&
+                this.today.toFormat('yyyy-LL-dd') ===
+                  DateTime.fromISO(obj.start).toFormat('yyyy-LL-dd'))
             )
           })
           .filter((game) => {
