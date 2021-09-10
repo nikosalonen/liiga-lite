@@ -81,6 +81,11 @@ export default {
       showTeam: 0,
     }
   },
+  head() {
+    return {
+      title: 'Päivän pelit',
+    }
+  },
 
   computed: {
     today() {
