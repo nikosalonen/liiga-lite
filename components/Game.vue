@@ -1,6 +1,6 @@
 <template>
   <div class="pt-8 text-white flex flex-row justify-center">
-    <NuxtLink :to="`${gameData.season}/${gameData.id}`">
+    <span>
       <div
         class="
           flex flex-row
@@ -60,7 +60,7 @@
           "
         />
       </div>
-    </NuxtLink>
+    </span>
   </div>
 </template>
 <script>
