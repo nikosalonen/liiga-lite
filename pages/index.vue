@@ -5,11 +5,11 @@
       <div v-if="isLoggedIn">
         <h1
           v-if="!settings.showAllDates"
-          class="text-white text-5xl sm-text-1xl"
+          class="text-white md:text-5xl sm:text-xl"
         >
           Päivän pelit {{ today.setLocale('fi').toFormat('ccc dd.LL.') }}
         </h1>
-        <h1 v-else class="text-white text-5xl sm-text-1xl">
+        <h1 v-else class="text-white md:text-5xl sm:text-xl">
           Kaikki kauden pelit
         </h1>
 
