@@ -85,7 +85,7 @@ export default {
   computed: {
     today() {
       if (this.settings.showDate) {
-        this.$router.replace('/')
+        this.$route.query.date && this.$router.replace('/')
         return DateTime.fromISO(this.settings.showDate)
       }
       if (this.$route.query.date) {
@@ -95,33 +95,31 @@ export default {
     },
 
     games() {
-      return (
-        this.allGames
-          .filter((obj) => {
+      return this.allGames
+        .filter((obj) => {
+          return (
+            this.settings.showAllDates ||
+            (this.settings.showDate &&
+              this.settings.showDate ===
+                DateTime.fromISO(obj.start).toFormat('yyyy-LL-dd')) ||
+            (!this.settings.showDate &&
+              this.today.toFormat('yyyy-LL-dd') ===
+                DateTime.fromISO(obj.start).toFormat('yyyy-LL-dd'))
+          )
+        })
+        .filter((game) => {
+          if (this.settings.showTeam !== 0) {
             return (
-              this.settings.showAllDates ||
-              (this.settings.showDate &&
-                this.settings.showDate ===
-                  DateTime.fromISO(obj.start).toFormat('yyyy-LL-dd')) ||
-              (!this.settings.showDate &&
-                this.today.toFormat('yyyy-LL-dd') ===
-                  DateTime.fromISO(obj.start).toFormat('yyyy-LL-dd'))
+              game.homeTeam.teamId.endsWith(this.settings.showTeam) ||
+              game.awayTeam.teamId.endsWith(this.settings.showTeam)
             )
-          })
-          .filter((game) => {
-            if (this.settings.showTeam !== 0) {
-              return (
-                game.homeTeam.teamId.endsWith(this.settings.showTeam) ||
-                game.awayTeam.teamId.endsWith(this.settings.showTeam)
-              )
-            }
-            return true
-          })
-          // .filter((game) => {
-          //   return game.started === false
-          // })
-          .sort((a, b) => a.start - b.start)
-      )
+          }
+          return true
+        })
+        .filter((game) => {
+          return game.started === false
+        })
+        .sort((a, b) => a.start - b.start)
     },
     settings() {
       return this.$store.state.settings
