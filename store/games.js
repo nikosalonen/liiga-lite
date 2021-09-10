@@ -18,7 +18,11 @@ const actions = {
     const pollGames = await this.$http.$get(
       'https://liiga.fi/api/v1/games/poll'
     )
-    commit('setPollGames', pollGames.games)
+
+    commit(
+      'setPollGames',
+      pollGames.games.sort((a, b) => a.id - b.id)
+    )
   },
 }
 
