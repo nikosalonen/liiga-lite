@@ -122,10 +122,23 @@ export default {
           return true
         })
         .filter((game) => {
-          if (this.settings.showDate >= this.today.toFormat('yyyy-LL-dd')) {
-            return game.started === false
+          if (
+            // Show games from the future
+            this.settings.showDate.length &&
+            this.settings.showDate >=
+              DateTime.fromISO(game.start).toFormat('yyyy-LL-dd')
+          ) {
+            return true
+          } else if (
+            // Show games in the past
+            this.settings.showDate.length &&
+            this.settings.showDate <
+              DateTime.fromISO(game.start).toFormat('yyyy-LL-dd')
+          ) {
+            return true
           }
-          return true
+          // Show games today only if they are not started
+          return game.started === false
         })
         .sort((a, b) => a.start - b.start)
     },
