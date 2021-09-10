@@ -1,17 +1,17 @@
 [![Netlify Status](https://api.netlify.com/api/v1/badges/cc285057-f468-4b74-9c01-08952a532034/deploy-status)](https://app.netlify.com/sites/liiga-lite/deploys)
 
-
-
 # liiga-lite
+
 Listaa päivän Liiga-pelit ja niiden tilanteet. Toteutettu omaksi iloksi ja vain yksityiseen käyttöön Liigan käyttöehtoja kunnioittaen.
 
 Website: https://liiga-lite.netlify.app/
 
 Ulkopuolisten rekisteröityminen mahdotonta.
 
-![Screenshot](https://github.com/nikosalonen/liiga-lite/raw/master/screenshot.png "Liiga-lite screenshot")
+<p align="center">
+<img src="https://github.com/nikosalonen/liiga-lite/raw/master/screenshot.png" alt="Liiga-lite screenshot">
+</p>
 ## Build Setup
-
 
 ```bash
 # install dependencies
