@@ -4,9 +4,10 @@
       <Counter />
       <div v-if="isLoggedIn">
         <h1 v-if="!settings.showAllDates" class="text-white text-5xl">
-          Liigan pelit {{ today.setLocale('fi').toFormat('ccc dd.LL.') }}
+          Päivän pelit {{ today.setLocale('fi').toFormat('ccc dd.LL.') }}
         </h1>
         <h1 v-else class="text-white text-5xl">Kaikki kauden pelit</h1>
+
         <div
           v-if="pollGames.length"
           class="gamesWrapper flex flex-col justify-center"
@@ -22,34 +23,7 @@
           <div v-for="game in games" :key="game.id">
             <Game :game="game" :show-all-dates="settings.showAllDates" />
           </div>
-          <div class="flex justify-center">
-            <button
-              class="
-                mt-16
-                justify-center
-                rounded-3xl
-                p-2
-                border-2
-                text-1xl text-white
-                hover:bg-white hover:text-gray-800
-                w-1/2
-              "
-              @click="refresh"
-            >
-              Päivitä
-            </button>
-          </div>
         </div>
-        <!-- <div v-if="nextGameDate">
-          <div class="text-white text-2xl pt-16 flex justify-center">
-            Ei pelejä tänään. Seuraavat pelit &nbsp;
-            <a
-              class="underline"
-              :href="`?date=${nextGameDate.toFormat('yyyy-LL-dd')}`"
-              >{{ nextGameDate.setLocale('fi').toFormat('ccc dd.LL.') }}</a
-            >
-          </div>
-        </div> -->
       </div>
 
       <div v-else class="mt-4">
@@ -117,27 +91,29 @@ export default {
     },
 
     games() {
-      return this.allGames
-        .filter((obj) => {
-          return (
-            this.settings.showAllDates ||
-            this.today.toFormat('yyyy-LL-dd') ===
-              DateTime.fromISO(obj.start).toFormat('yyyy-LL-dd')
-          )
-        })
-        .filter((game) => {
-          if (this.settings.showTeam !== 0) {
+      return (
+        this.allGames
+          .filter((obj) => {
             return (
-              game.homeTeam.teamId.endsWith(this.settings.showTeam) ||
-              game.awayTeam.teamId.endsWith(this.settings.showTeam)
+              this.settings.showAllDates ||
+              this.today.toFormat('yyyy-LL-dd') ===
+                DateTime.fromISO(obj.start).toFormat('yyyy-LL-dd')
             )
-          }
-          return true
-        })
-        .filter((game) => {
-          return game.started === false
-        })
-        .sort((a, b) => a.start - b.start)
+          })
+          .filter((game) => {
+            if (this.settings.showTeam !== 0) {
+              return (
+                game.homeTeam.teamId.endsWith(this.settings.showTeam) ||
+                game.awayTeam.teamId.endsWith(this.settings.showTeam)
+              )
+            }
+            return true
+          })
+          // .filter((game) => {
+          //   return game.started === false
+          // })
+          .sort((a, b) => a.start - b.start)
+      )
     },
     settings() {
       return this.$store.state.settings

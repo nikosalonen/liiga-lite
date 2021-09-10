@@ -10,16 +10,19 @@
           align-center
           items-center
           place-content-center
+          text-center
         "
       >
-        <span v-if="gameData.stared === false">
+        <span v-if="!started">
           <span v-if="showAll">{{ startDate }}</span>
           {{ startTime }}
         </span>
-        <span v-if="gameData.started" class="text-white">
+        <span v-else-if="started && !ended" class="text-white">
           {{ gameTime }}
         </span>
-        <span v-if="gameData.ended"> Peli päättynyt </span>
+        <span v-else class="text-gray-500">
+          Peli päättynyt <br />{{ gameTime }}
+        </span>
       </div>
       <div
         class="
@@ -93,6 +96,12 @@ export default {
     },
     awayGoals() {
       return this.gameData.awayTeam.goals
+    },
+    started() {
+      return this.gameData.started
+    },
+    ended() {
+      return this.gameData.ended
     },
   },
 }
