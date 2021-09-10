@@ -86,7 +86,13 @@ export default {
       const gt = Duration.fromObject({ seconds: this.game.gameTime })
         .shiftTo('minutes', 'seconds')
         .toObject()
-      return gt.minutes + ':' + (gt.seconds < 10 ? '0' : '') + gt.seconds
+      return (
+        (gt.minutes < 10 ? '0' : '') +
+        gt.minutes +
+        ':' +
+        (gt.seconds < 10 ? '0' : '') +
+        gt.seconds
+      )
     },
     homeGoals() {
       return this.gameData.homeTeam.goals
