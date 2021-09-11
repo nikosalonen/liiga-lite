@@ -46,7 +46,11 @@
           0 - 0
         </div>
         <div v-else class="score text-white text-xl px-4">
-          {{ homeGoals }} - {{ awayGoals }}
+          <span v-if="started && !ended" class="text-white">
+            {{ homeGoals }} - {{ awayGoals }} </span
+          ><span v-else-if="ended" class="text-gray-500">
+            {{ homeGoals }} - {{ awayGoals }}
+          </span>
         </div>
         <img
           class="teamLogo"
