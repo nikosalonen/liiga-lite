@@ -95,16 +95,16 @@ export default {
       )
     },
     homeGoals() {
-      return this.gameData.homeTeam.goals
+      return this.game.homeTeam.goals
     },
     awayGoals() {
-      return this.gameData.awayTeam.goals
+      return this.game.awayTeam.goals
     },
     started() {
-      return this.gameData.started
+      return this.game.started
     },
     ended() {
-      return this.gameData.ended
+      return this.game.ended
     },
   },
 }
