@@ -22,7 +22,7 @@
           </div>
         </div>
         <div
-          v-else-if="games.length"
+          v-if="games.length"
           class="gamesWrapper flex flex-col justify-center"
         >
           <div v-for="game in games" :key="game.id">
