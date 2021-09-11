@@ -4,6 +4,7 @@ const state = () => ({
   allGames: [],
   pollGames: [],
   today: DateTime.now(),
+  active: 0,
 })
 export const getters = {
   allGames: (state) => state.allGames,
@@ -23,6 +24,7 @@ const actions = {
       'setPollGames',
       pollGames.games.sort((a, b) => a.id - b.id)
     )
+    commit('setActiveGames', pollGames.length)
   },
 }
 
@@ -32,6 +34,13 @@ const mutations = {
   },
   setPollGames(state, value) {
     state.pollGames = value
+  },
+  setActiveGames(state, value) {
+    const old = state.setActiveGames
+    if (value !== old) {
+      this.getAllGames()
+      state.setActiveGames = value
+    }
   },
 }
 export default {
