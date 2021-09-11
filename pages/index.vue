@@ -141,6 +141,8 @@ export default {
               DateTime.fromISO(game.start).toFormat('yyyy-LL-dd')
           ) {
             return true
+          } else if (game.ended) {
+            return true
           }
           // Show games today only if they are not started
           return game.started === false
