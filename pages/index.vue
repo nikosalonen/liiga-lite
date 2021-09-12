@@ -29,6 +29,18 @@
             <Game :game="game" :show-all-dates="settings.showAllDates" />
           </div>
         </div>
+        <div
+          v-else
+          class="
+            gamesWrapper
+            flex flex-col
+            justify-center
+            text-white text-2xl text-center
+            pt-6
+          "
+        >
+          Ei pelejä tänään.
+        </div>
       </div>
 
       <div v-else class="mt-4">
