@@ -14,6 +14,7 @@ Ulkopuolisten rekisteröityminen mahdotonta.
 <p align="center">
 <img src="https://github.com/nikosalonen/liiga-lite/raw/master/screenshot.png" alt="Liiga-lite screenshot">
 </p>
+
 ## Build Setup
 
 ```bash
