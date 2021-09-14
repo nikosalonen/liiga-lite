@@ -2,6 +2,7 @@
   <div>
     <div class="grid grid-cols-8 gap-2 h-full min-h-screen">
       <div class="flex text-white">
+        <!-- <span class="flex flex-col justify-center text-center w-full px-5"> -->
         <span class="flex flex-col justify-center text-center w-full px-5">
           <a href="#" @click="setPreviousDateParam">◀</a>
         </span>
@@ -219,12 +220,18 @@ export default {
 
         return gameDate < today
       })
-      this.$router.push({
-        path: this.$route.path,
-        query: {
-          date: DateTime.fromISO(previous.at(-1).start).toFormat('yyyy-LL-dd'),
-        },
-      })
+      if (previous.length) {
+        this.$router.push({
+          path: this.$route.path,
+          query: {
+            date: DateTime.fromISO(previous.at(-1).start).toFormat(
+              'yyyy-LL-dd'
+            ),
+          },
+        })
+      } else {
+        alert('Ei aikaisempia pelejä!')
+      }
     },
     setNextDateParam() {
       const today = this.today.toFormat('yyyy-LL-dd')
@@ -235,10 +242,12 @@ export default {
 
         return gameDate > today
       })
-      this.$router.push({
-        path: this.$route.path,
-        query: { date: DateTime.fromISO(next.start).toFormat('yyyy-LL-dd') },
-      })
+      if (next) {
+        this.$router.push({
+          path: this.$route.path,
+          query: { date: DateTime.fromISO(next.start).toFormat('yyyy-LL-dd') },
+        })
+      }
     },
     destroyTimer() {
       clearInterval(this.timer)
