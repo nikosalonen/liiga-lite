@@ -216,11 +216,9 @@ export default {
 
       const previous = games.filter((g) => {
         const gameDate = DateTime.fromISO(g.start).toFormat('yyyy-LL-dd')
-        console.log(gameDate)
-        console.log(today)
+
         return gameDate < today
       })
-      console.log(previous)
       this.$router.push({
         path: this.$route.path,
         query: {
