@@ -1,9 +1,19 @@
 <template>
   <div>
     <div class="grid grid-cols-8 gap-2 h-full min-h-screen">
-      <div class="flex text-white">
+      <div class="flex text-gray-700">
         <!-- <span class="flex flex-col justify-center text-center w-full px-5"> -->
-        <span class="flex flex-col justify-center text-center w-full px-5">
+        <span
+          class="
+            flex flex-col
+            justify-center
+            text-center
+            w-full
+            px-5
+            text-3xl
+            hover:text-white
+          "
+        >
           <a href="#" @click="setPreviousDateParam">◀</a>
         </span>
       </div>
@@ -96,8 +106,18 @@
       >
         <Settings />
       </div>
-      <div class="flex text-white">
-        <span class="flex flex-col justify-center text-center w-full px-5">
+      <div class="flex text-gray-700">
+        <span
+          class="
+            flex flex-col
+            justify-center
+            text-center
+            w-full
+            px-5
+            text-3xl
+            hover:text-white
+          "
+        >
           <a href="#" @click="setNextDateParam">▶</a>
         </span>
       </div>
