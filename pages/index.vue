@@ -66,7 +66,7 @@
               rounded-3xl
               p-4
               border-2
-              text-3xl
+              text-3xl text-white
               hover:bg-white hover:text-gray-800
             "
             href="#"
