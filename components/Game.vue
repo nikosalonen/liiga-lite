@@ -21,7 +21,8 @@
           {{ gameTime }}
         </span>
         <span v-else class="text-gray-500">
-          Peli päättynyt <br />{{ gameTime }}
+          Päättynyt <span v-if="ot">(JA)</span><span v-else-if="ws">(VL)</span
+          ><br />{{ gameTime }}
         </span>
       </div>
       <div
@@ -86,6 +87,18 @@ export default {
     }
   },
   computed: {
+    ot() {
+      return (
+        this.game.ended &&
+        this.game.finishedType === 'ENDED_DURING_EXTENDED_GAME_TIME'
+      )
+    },
+    ws() {
+      return (
+        this.game.ended &&
+        this.game.finishedType === 'ENDED_DURING_WINNING_SHOT_COMPETITION'
+      )
+    },
     gameTime() {
       const gt = Duration.fromObject({ seconds: this.game.gameTime })
         .shiftTo('minutes', 'seconds')
