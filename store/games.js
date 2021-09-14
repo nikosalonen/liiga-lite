@@ -5,10 +5,14 @@ const state = () => ({
   pollGames: [],
   today: DateTime.now(),
   active: 0,
+  nextGameDate: '',
+  previousGameDate: '',
 })
 export const getters = {
   allGames: (state) => state.allGames,
   pollGames: (state) => state.pollGames,
+  nextGames: (state) => state.nextGameDate,
+  previousGames: (state) => state.previousGameDate,
 }
 const actions = {
   async getAllGames({ commit }) {
