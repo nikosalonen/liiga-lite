@@ -58,7 +58,7 @@
             </div>
           </div>
           <div
-            v-else
+            v-if="!games.length && !pollGames.length"
             class="
               gamesWrapper
               flex flex-col
