@@ -217,7 +217,7 @@ export default {
     ...mapGetters('games', [
       'allGames',
       'pollGames',
-      // 'nextGames',
+      'lastFetch',
       // 'previousGames',
     ]),
   },

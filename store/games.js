@@ -5,14 +5,14 @@ const state = () => ({
   pollGames: [],
   today: DateTime.now(),
   active: 0,
-  nextGameDate: '',
-  previousGameDate: '',
+  lastFetch: 0,
+  activeGames: 0,
 })
 export const getters = {
   allGames: (state) => state.allGames,
   pollGames: (state) => state.pollGames,
-  nextGames: (state) => state.nextGameDate,
-  previousGames: (state) => state.previousGameDate,
+  lastFetch: (state) => state.lastFetch,
+  activeGames: (state) => state.activeGames,
 }
 const actions = {
   async getAllGames({ commit }) {
@@ -23,12 +23,16 @@ const actions = {
     const pollGames = await this.$http.$get(
       'https://liiga.fi/api/v1/games/poll'
     )
-
+    commit('setLastFetch', DateTime.local().toISO())
     commit(
       'setPollGames',
       pollGames.games.sort((a, b) => a.id - b.id)
     )
-    commit('setActiveGames', pollGames.length)
+    if (pollGames.length < state.activeGames) {
+      // pollGame ended, fetch allGames again to get final results
+      commit('setActiveGames', pollGames.length)
+      this.getAllGames()
+    }
   },
 }
 
@@ -36,15 +40,14 @@ const mutations = {
   setAllGames(state, value) {
     state.allGames = value
   },
+  setLastFetch(state, value) {
+    state.lastFetch = value
+  },
   setPollGames(state, value) {
     state.pollGames = value
   },
   setActiveGames(state, value) {
-    const old = state.setActiveGames
-    if (value !== old) {
-      this.getAllGames()
-      state.setActiveGames = value
-    }
+    state.setActiveGames = value
   },
 }
 export default {
