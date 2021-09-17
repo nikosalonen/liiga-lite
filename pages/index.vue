@@ -244,6 +244,8 @@ export default {
         return gameDate < today
       })
       if (previous.length) {
+        this.$store.commit('settings/updateShowDate', '')
+
         this.$router.push({
           path: this.$route.path,
           query: {
@@ -262,13 +264,14 @@ export default {
 
       const next = games.find((g) => {
         const gameDate = DateTime.fromISO(g.start).toFormat('yyyy-LL-dd')
-
         return gameDate > today
       })
       if (next) {
+        this.$store.commit('settings/updateShowDate', '')
+        const nextDate = DateTime.fromISO(next.start).toFormat('yyyy-LL-dd')
         this.$router.push({
           path: this.$route.path,
-          query: { date: DateTime.fromISO(next.start).toFormat('yyyy-LL-dd') },
+          query: { date: nextDate },
         })
       }
     },
