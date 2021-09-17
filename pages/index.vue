@@ -42,7 +42,9 @@
           </div>
 
           <div
-            v-if="pollGames.length"
+            v-if="
+              pollGames.length && today.toFormat('yyyy-LL-dd') === actualToday
+            "
             class="gamesWrapper flex flex-col justify-center"
           >
             <div v-for="game in pollGames" :key="game.id">
@@ -141,6 +143,7 @@ export default {
       showSettings: false,
       showTeam: 0,
       nextGames: '',
+      actualToday: DateTime.local().toFormat('yyyy-LL-dd'),
     }
   },
   head() {
