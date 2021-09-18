@@ -29,7 +29,7 @@ const actions = {
       pollGames.games.sort((a, b) => a.id - b.id)
     )
     const activeGames = pollGames.length
-    if ((activeGames || 0) < state.activeGames) {
+    if ((activeGames || 0) !== state.activeGames) {
       // pollGame ended, fetch allGames again to get final results
       this.getAllGames()
       this.setActiveGames(activeGames)
