@@ -19,7 +19,7 @@ const actions = {
     const allGames = await this.$http.$get('https://liiga.fi/api/v1/games/')
     commit('setAllGames', allGames)
   },
-  async getPollGames({ commit }) {
+  async getPollGames({ commit, state }) {
     const pollGames = await this.$http.$get(
       'https://liiga.fi/api/v1/games/poll'
     )
@@ -28,10 +28,11 @@ const actions = {
       'setPollGames',
       pollGames.games.sort((a, b) => a.id - b.id)
     )
-    if (pollGames.length < state.activeGames) {
+    const activeGames = pollGames.length
+    if ((activeGames || 0) < state.activeGames) {
       // pollGame ended, fetch allGames again to get final results
-      commit('setActiveGames', pollGames.length)
       this.getAllGames()
+      this.setActiveGames(activeGames)
     }
   },
 }
