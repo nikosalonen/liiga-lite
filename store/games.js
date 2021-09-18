@@ -19,7 +19,7 @@ const actions = {
     const allGames = await this.$http.$get('https://liiga.fi/api/v1/games/')
     commit('setAllGames', allGames)
   },
-  async getPollGames({ commit, state }) {
+  async getPollGames({ commit, state, dispatch }) {
     const pollGames = await this.$http.$get(
       'https://liiga.fi/api/v1/games/poll'
     )
@@ -28,11 +28,11 @@ const actions = {
       'setPollGames',
       pollGames.games.sort((a, b) => a.id - b.id)
     )
-    const activeGames = pollGames.length
-    if ((activeGames || 0) !== state.activeGames) {
+    const activeGames = (pollGames.games && pollGames.games.length) || 0
+    if (activeGames !== state.activeGames) {
+      commit('setActiveGames', activeGames)
       // pollGame ended, fetch allGames again to get final results
-      this.getAllGames()
-      this.setActiveGames(activeGames)
+      dispatch('getAllGames')
     }
   },
 }
@@ -48,7 +48,7 @@ const mutations = {
     state.pollGames = value
   },
   setActiveGames(state, value) {
-    state.setActiveGames = value
+    state.activeGames = value
   },
 }
 export default {
