@@ -227,8 +227,8 @@ export default {
   created() {
     this.getAllGames()
     this.getPollGames()
-    this.timer = setInterval(this.getPollGames, 10000)
-    this.refresher = setInterval(this.refresh, 5000)
+    this.timer = setInterval(this.getPollGames, 14000)
+    this.refresher = setInterval(this.refresh, 7000)
   },
   beforeDestroy() {
     this.destroyTimer()
