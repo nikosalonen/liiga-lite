@@ -5,7 +5,9 @@ module.exports = {
     node: true,
   },
   parserOptions: {
-    parser: 'babel-eslint',
+    parser: '@babel/eslint-parser',
+    requireConfigFile: false,
+    ecmaVersion: 8,
   },
   extends: [
     '@nuxtjs',
