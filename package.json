@@ -24,7 +24,7 @@
     "@nuxtjs/proxy": "^2.1.0",
     "@nuxtjs/pwa": "^3.3.5",
     "core-js": "^3.19.0",
-    "luxon": "^2.0.2",
+    "luxon": "^2.1.1",
     "netlify-identity-widget": "^1.9.2",
     "nuxt": "^2.15.8"
   },
