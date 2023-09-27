@@ -4,15 +4,7 @@
       <div class="flex text-gray-700">
         <!-- <span class="flex flex-col justify-center text-center w-full px-5"> -->
         <span
-          class="
-            flex flex-col
-            justify-center
-            text-center
-            w-full
-            px-5
-            text-3xl
-            hover:text-white
-          "
+          class="flex flex-col justify-center text-center w-full px-5 text-3xl hover:text-white"
         >
           <a href="#" @click="setPreviousDateParam">◀</a>
         </span>
@@ -22,13 +14,7 @@
 
         <div v-if="isLoggedIn">
           <div
-            class="
-              headerWrapper
-              flex flex-row
-              justify-around
-              text-white
-              align-baseline
-            "
+            class="headerWrapper flex flex-row justify-around text-white align-baseline"
           >
             <h1
               v-if="!settings.showAllDates"
@@ -61,13 +47,7 @@
           </div>
           <div
             v-if="!games.length && !pollGames.length"
-            class="
-              gamesWrapper
-              flex flex-col
-              justify-center
-              text-white text-2xl text-center
-              min-h-screen
-            "
+            class="gamesWrapper flex flex-col justify-center text-white text-2xl text-center min-h-screen"
           >
             Ei pelejä tänään.
           </div>
@@ -75,13 +55,7 @@
 
         <div v-else class="mt-4">
           <a
-            class="
-              rounded-3xl
-              p-4
-              border-2
-              text-3xl text-white
-              hover:bg-white hover:text-gray-800
-            "
+            class="rounded-3xl p-4 border-2 text-3xl text-white hover:bg-white hover:text-gray-800"
             href="#"
             @click="triggerNetlifyIdentityAction('login')"
           >
@@ -91,34 +65,13 @@
       </div>
       <div
         v-if="settings.showSettings"
-        class="
-          fixed
-          text-white
-          flex
-          items-center
-          justify-center
-          overflow-auto
-          z-50
-          bg-black bg-opacity-40
-          left-0
-          right-0
-          top-0
-          bottom-0
-        "
+        class="fixed text-white flex items-center justify-center overflow-auto z-50 bg-black bg-opacity-40 left-0 right-0 top-0 bottom-0"
       >
         <Settings />
       </div>
       <div class="flex text-gray-700">
         <span
-          class="
-            flex flex-col
-            justify-center
-            text-center
-            w-full
-            px-5
-            text-3xl
-            hover:text-white
-          "
+          class="flex flex-col justify-center text-center w-full px-5 text-3xl hover:text-white"
         >
           <a href="#" @click="setNextDateParam">▶</a>
         </span>
@@ -230,7 +183,7 @@ export default {
     this.timer = setInterval(this.getPollGames, 14000)
     this.refresher = setInterval(this.refresh, 7000)
   },
-  beforeDestroy() {
+  beforeUnmount() {
     this.destroyTimer()
   },
   methods: {
@@ -250,7 +203,7 @@ export default {
           path: this.$route.path,
           query: {
             date: DateTime.fromISO(previous.at(-1).start).toFormat(
-              'yyyy-LL-dd'
+              'yyyy-LL-dd',
             ),
           },
         })
